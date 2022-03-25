@@ -25,7 +25,7 @@ body {
 }
 
 .app__header > h1 {
-	color: #3676BE;
+	color: #3676be;
 	font-size: 2rem;
 }
 
@@ -38,6 +38,11 @@ body {
 	flex: 0.9;
 }
 
+.app__right {
+	display: flex;
+	flex-direction: column;
+}
+
 .app__information > h3 {
 	color: #6a5d5d;
 	font-weight: 400;
@@ -47,6 +52,20 @@ body {
 
 .app__information > h3:last-of-type {
 	margin-top: 1rem;
+}
+
+.change_buttons {
+	display: flex;
+	justify-content: space-evenly;
+}
+.btn {
+	border: none;
+	padding: 13px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 @media (max-width: 990px) {
