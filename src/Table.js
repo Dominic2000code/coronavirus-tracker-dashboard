@@ -2,17 +2,28 @@ import React from "react";
 import "./Table.css";
 import numeral from "numeral";
 
-function Table({ countries }) {
+function Table({ countries, tableState }) {
+	// console.log(countries);
 	return (
 		<div className="table">
-			{countries.map(({ country, cases }) => (
-				<tr>
-					<td> {country} </td>
-					<td>
-						<strong>{numeral(cases).format("0,0")}</strong>
-					</td>
-				</tr>
-			))}
+			<table>
+				<tbody>
+					{countries.map(({ country, cases, deaths, recovered }) => (
+						<tr>
+							<td> {country} </td>
+							<td>
+								<strong>
+									{tableState === "Cases"
+										? numeral(cases).format("0,0")
+										: tableState === "Recovered"
+										? numeral(recovered).format("0,0")
+										: numeral(deaths).format("0,0")}
+								</strong>
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
 		</div>
 	);
 }
