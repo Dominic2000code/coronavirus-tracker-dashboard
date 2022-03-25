@@ -1,10 +1,12 @@
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"); */
 .infoBox {
 	flex: 1;
 	cursor: pointer;
 }
 
 .infoBox:not(:last-child) {
-	margin-right: 10px;
+	/* margin-right: 10px; */
+	margin-right: 15px;
 }
 
 .infoBox--selected {
