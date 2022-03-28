@@ -38,10 +38,10 @@ body {
 	flex: 0.9;
 }
 
-.app__right {
+/* .app__right {
 	display: flex;
 	flex-direction: column;
-}
+} */
 
 .app__information > h3 {
 	color: #6a5d5d;
@@ -72,4 +72,43 @@ body {
 	.app {
 		flex-direction: column;
 	}
+}
+
+.App {
+	text-align: center;
+}
+
+#graph {
+	position: absolute;
+	top: 10%;
+}
+
+#description {
+	color: black;
+	/* padding-right: 100px;
+  padding-left: 100px; */
+}
+
+#equation {
+	color: black;
+}
+
+#graph {
+	justify-content: center;
+}
+
+#l {
+	padding-left: 190px;
+	padding-right: 200px;
+	padding-bottom: 150px;
+}
+
+#b {
+	padding-left: 190px;
+	padding-right: 200px;
+	padding-bottom: 150px;
+}
+
+#graph {
+	width: 100%;
 }

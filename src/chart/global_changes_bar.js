@@ -160,7 +160,7 @@ const GlobalChangesBar = (props) => {
 						</p>
 					</div>
 					<br></br>
-					<button onClick={handleClick} variant={"info"}>
+					<button onClick={handleClick} className="btn">
 						Show Cases
 					</button>
 					<br></br>

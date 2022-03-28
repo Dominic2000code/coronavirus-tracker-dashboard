@@ -5,6 +5,7 @@ import GlobalDataLine from "./global_line";
 import GlobalChangesBar from "./global_changes_bar";
 import CFRContainer from "./global_cfr";
 import GlobalVaccineLine from "./global_vaccines_line";
+import { Link } from "react-router-dom";
 
 const GlobalGraphContainer = (props) => {
 	const [data, setData] = useState([]);
@@ -55,6 +56,9 @@ const GlobalGraphContainer = (props) => {
 	// defaults.global.defaultFontColor = "black";
 	return (
 		<div id="graph">
+			<Link to="/" className="btn-link">
+				<button className="btn">Home</button>
+			</Link>{" "}
 			<h2>Global Data From Day of First Death</h2>
 			<br></br>
 			<br></br>
@@ -79,21 +83,6 @@ const GlobalGraphContainer = (props) => {
 					createLineLabels={createLineLabels()}
 				/>
 			</div>
-			<footer>
-				<a href="https://github.com/davidpaps/covid_19_mapper">
-					Github repo for original work
-				</a>
-				&nbsp;&nbsp;Data Sources:{" "}
-				<a href="https://github.com/CSSEGISandData/COVID-19">
-					John Hopkins
-				</a>
-				,{" "}
-				<a href="https://www.worldometers.info/coronavirus/">
-					Worldometer
-				</a>
-				, <a href="https://github.com/pomber/covid19">Pomber</a>,
-				<a href="https://disease.sh/">Disease.sh</a>
-			</footer>
 		</div>
 	);
 };

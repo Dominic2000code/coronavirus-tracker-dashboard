@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import popData from "../Assets/popData.json";
+import popData from "../assets/popData.json";
 import {
 	Chart as ChartJS,
 	CategoryScale,
