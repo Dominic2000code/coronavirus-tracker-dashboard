@@ -42,32 +42,58 @@ const options = {
 	borderWidth: 2,
 };
 
-function GlobalVaccineLine({ casesType, ...props }) {
-	const [data, setData] = useState({});
-
-	const buildVaccineChart = (data) => {
-		let chartData = [];
-		let prevData;
-		for (let date in data) {
-			if (prevData) {
-				let newData = {
-					x: date,
-					y: data[date] - prevData,
-				};
-				chartData.push(newData);
-			}
-			prevData = data[date];
+const buildWorldVaccineLineGraphData = (data) => {
+	const lineGraphData = [];
+	let dataPoint;
+	for (let date in data) {
+		if (dataPoint) {
+			const newDataPoint = {
+				x: date,
+				y: data[date] - dataPoint,
+			};
+			lineGraphData.push(newDataPoint);
 		}
-		return chartData;
-	};
+		dataPoint = data[date];
+	}
+	return lineGraphData;
+};
+
+function GlobalVaccineLine({ casesType, ...props }) {
+	// const [data, setData] = useState({});
+	// const [vaccineCount, setVaccineCount] = useState(0);
+	const [worldLineData, setWorldLineData] = useState([]);
+
+	// const buildVaccineChart = (data) => {
+	// 	let chartData = [];
+	// 	let prevData;
+	// 	for (let date in data) {
+	// 		if (prevData) {
+	// 			let newData = {
+	// 				x: date,
+	// 				y: data[date] - prevData,
+	// 			};
+	// 			chartData.push(newData);
+	// 		}
+	// 		prevData = data[date];
+	// 	}
+	// 	return chartData;
+	// };
 
 	useEffect(() => {
 		const fetchData = async () => {
-			await fetch("https://disease.sh/v3/covid-19/vaccine/coverage")
+			await fetch(
+				"https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=all&fullData=false"
+			)
 				.then((response) => response.json())
 				.then((data) => {
-					let chartData = buildVaccineChart(data);
-					setData(chartData);
+					// const arr = Object.values(data);
+					// const worldVaccineCount = arr[arr.length - 1];
+					// let chartData = buildVaccineChart(data);
+					// setVaccineCount(worldVaccineCount);
+					const vaccineLineData =
+						buildWorldVaccineLineGraphData(data);
+					setWorldLineData(vaccineLineData);
+					// setData(chartData);
 				});
 		};
 		fetchData();
@@ -77,7 +103,7 @@ function GlobalVaccineLine({ casesType, ...props }) {
 		datasets: [
 			{
 				label: "Vaccines rolled-out",
-				data: data,
+				data: worldLineData,
 				fill: false,
 				backgroundColor: "rgba(40, 167, 69, 0.2)",
 				borderColor: "#28a745",
