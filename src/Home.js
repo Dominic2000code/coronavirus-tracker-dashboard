@@ -39,7 +39,8 @@ const Home = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				setCountryInfo(data);
-			});
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	useEffect(() => {
@@ -62,7 +63,8 @@ const Home = () => {
 					setCountries(countries);
 					setMapCountries(data);
 					setTableData(sortedData);
-				});
+				})
+				.catch((err) => console.log(err));
 		};
 
 		getCountriesData();
@@ -91,7 +93,8 @@ const Home = () => {
 							data.countryInfo.long,
 					  ]);
 				setMapZoom(4);
-			});
+			})
+			.catch((err) => console.log(err));
 	};
 
 	const onTableDataChange = (event) => {
