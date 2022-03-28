@@ -121,7 +121,8 @@ const GlobalStats = () => {
 				setVaccinesData(res1);
 				// console.log(res1);
 				setChartLoaded(true);
-			});
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	return (
