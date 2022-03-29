@@ -327,6 +327,7 @@ const Home = () => {
 					<CardContent>
 						<div className="app__information">
 							<h3> {tableState} by Country</h3>
+							<p> Highest to Lowest </p>
 							<div className="change_buttons">
 								<button
 									className="btn"
@@ -347,7 +348,6 @@ const Home = () => {
 									Deaths
 								</button>
 							</div>
-							<p> Highest to Lowest </p>
 							<Table
 								countries={tableData}
 								tableState={tableState}
