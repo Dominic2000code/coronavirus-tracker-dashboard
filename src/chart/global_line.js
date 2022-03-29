@@ -183,9 +183,9 @@ const GlobalDataLine = (props) => {
 
 	return (
 		<div>
-			<h4>Confirmed Cases, Deaths and Recoveries</h4>
+			<h6>Confirmed Cases, Deaths and Recoveries</h6>
 			<br></br>
-			<div id="description">
+			<div id="description small">
 				<p>
 					This represents the increase over time for confirmed cases,
 					deaths and recoveries globally.
