@@ -17,6 +17,8 @@ import {
 } from "./utils";
 import numeral from "numeral";
 import Map from "./Map";
+import ref_country_codes from "./assets/countries-lat-long.json";
+import us_codes from "./assets/USlatlong.json";
 import "leaflet/dist/leaflet.css";
 
 const Home = () => {
@@ -33,6 +35,10 @@ const Home = () => {
 	const [mapZoom, setMapZoom] = useState(2);
 	const [isLoading, setIsLoading] = useState(false);
 	const [tableState, setTableState] = useState("Cases");
+	const [countriesInteger, setCountriesInteger] = useState([]);
+	const [timeSeries, setTimeSeries] = useState([]);
+	const [totalInt, setTotalInt] = useState([]);
+	const [chartLoaded, setChartLoaded] = useState(false);
 
 	useEffect(() => {
 		fetch("https://disease.sh/v3/covid-19/all")
@@ -69,6 +75,144 @@ const Home = () => {
 
 		getCountriesData();
 	}, [tableState]);
+
+	const fixTimeSeriesUS = (res3) => {
+		res3["USA"] = res3["US"];
+		res3["S. Korea"] = res3["Korea, South"];
+		res3["Taiwan"] = res3["Taiwan*"];
+		delete res3["Taiwan*"];
+		delete res3["Korea, South"];
+		delete res3["US"];
+		return res3;
+	};
+
+	const toInteger = (totalArray) => {
+		var newTotalCases = parseInt(
+			totalArray["total_cases"].replace(/,/g, "")
+		);
+		var newTotalDeaths = parseInt(
+			totalArray["total_deaths"].replace(/,/g, "")
+		);
+		var newTotalRecoveries = parseInt(
+			totalArray["total_recovered"].replace(/,/g, "")
+		);
+		return [newTotalCases, newTotalDeaths, newTotalRecoveries];
+	};
+
+	const makeCountriesInteger = (countries, states) => {
+		const countriesInteger = [];
+		ref_country_codes.ref_country_codes.forEach((one) => {
+			countries.forEach((two) => {
+				if (one.country === two.country_name) {
+					let intTotalConfirmed = parseInt(
+						two.cases.replace(/,/g, "")
+					);
+					let intTotalDeaths = parseInt(two.deaths.replace(/,/g, ""));
+					let cfr = (intTotalDeaths / intTotalConfirmed) * 100;
+
+					countriesInteger.push({
+						country: two.country_name,
+						recovered: parseInt(
+							two.total_recovered.replace(/,/g, "")
+						),
+						deaths: parseInt(two.deaths.replace(/,/g, "")),
+						confirmed: parseInt(two.cases.replace(/,/g, "")),
+						center: { lat: one.latitude, lng: one.longitude },
+						newCases: parseInt(two.new_cases.replace(/,/g, "")),
+						newDeaths: parseInt(two.new_deaths.replace(/,/g, "")),
+						activeCases: parseInt(
+							two.active_cases.replace(/,/g, "")
+						),
+						criticalCases: parseInt(
+							two.serious_critical.replace(/,/g, "")
+						),
+						perOneMillion: parseInt(
+							two.total_cases_per_1m_population.replace(/,/g, "")
+						),
+						cfr: parseFloat(cfr.toFixed(2)),
+					});
+				}
+			});
+		});
+
+		us_codes.us_codes.forEach((state) => {
+			states.forEach((obj) => {
+				if (obj.state === "Georgia") {
+					obj.state = "Georgia, US";
+				}
+				if (obj.state === state.state) {
+					countriesInteger.push({
+						us: true,
+						country: state.state,
+						recovered: obj.recovered,
+						deaths: obj.deaths,
+						confirmed: obj.confirmed,
+						center: { lat: state.latitude, lng: state.longitude },
+						cfr: parseFloat(
+							((obj.deaths / obj.confirmed) * 100).toFixed(2)
+						),
+					});
+				}
+			});
+		});
+		return countriesInteger;
+	};
+
+	useEffect(() => {
+		Promise.all([
+			fetch(
+				"https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php",
+				{
+					method: "GET",
+					headers: {
+						"x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+						"x-rapidapi-key":
+							"2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef",
+					},
+				}
+			),
+			fetch(
+				"https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php",
+				{
+					method: "GET",
+					headers: {
+						"x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+						"x-rapidapi-key":
+							// "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
+							"a04279196bmsh77bb3ff9e6f2e74p1f4d03jsn5bc0fbe15879",
+					},
+				}
+			),
+			fetch("https://covid19-data.p.rapidapi.com/us", {
+				method: "GET",
+				headers: {
+					"x-rapidapi-host": "covid19-data.p.rapidapi.com",
+					"x-rapidapi-key":
+						"2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef",
+				},
+			}),
+			fetch("https://pomber.github.io/covid19/timeseries.json"),
+		])
+			.then(([res1, res2, res3, res4]) => {
+				return Promise.all([
+					res1.json(),
+					res2.json(),
+					res3.json(),
+					res4.json(),
+				]);
+			})
+			.then(([res1, res2, res3, res4]) => {
+				setCountriesInteger(
+					makeCountriesInteger(res2.countries_stat, res3.list)
+				);
+				setTimeSeries(fixTimeSeriesUS(res4));
+				setTotalInt(toInteger(res1));
+
+				// console.log(res1);
+				setChartLoaded(true);
+			})
+			.catch((err) => console.log(err));
+	}, []);
 
 	const onCountryChange = async (e) => {
 		setIsLoading(true);
@@ -203,10 +347,13 @@ const Home = () => {
 									Deaths
 								</button>
 							</div>
-							{/* <p> Highest to Lowest </p> */}
+							<p> Highest to Lowest </p>
 							<Table
 								countries={tableData}
 								tableState={tableState}
+								countries_={countriesInteger}
+								totalInt={totalInt}
+								timeSeries={timeSeries}
 							/>
 						</div>
 					</CardContent>
