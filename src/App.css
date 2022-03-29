@@ -97,6 +97,10 @@ body {
 	justify-content: center;
 }
 
+#graph-container {
+	text-align: center;
+}
+
 #l {
 	padding-left: 190px;
 	padding-right: 200px;
@@ -109,6 +113,22 @@ body {
 	padding-bottom: 150px;
 }
 
+#l-m {
+	padding-left: auto;
+	padding-right: auto;
+	padding-bottom: 150px;
+}
+
+#b-m {
+	padding-left: auto;
+	padding-right: auto;
+	padding-bottom: 150px;
+}
+
 #graph {
 	width: 100%;
+}
+
+.small {
+	font-size: xx-small !important;
 }
