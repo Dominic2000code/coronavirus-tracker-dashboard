@@ -38,6 +38,7 @@ const GlobalGraphContainer = (props) => {
 
 	useEffect(() => {
 		getData();
+		// eslint-disable-next-line
 	}, []);
 
 	const createLineLabels = () => {
