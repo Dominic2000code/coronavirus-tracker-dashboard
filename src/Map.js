@@ -21,7 +21,7 @@ const Map = ({ countries, casesType, center, zoom }) => {
 		>
 			<ChangeView center={center} zoom={zoom} />
 			<TileLayer
-				url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=DlIebgCmxNwwlxrCYBrK"
+				url="https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}@2x.png?key=DlIebgCmxNwwlxrCYBrK"
 				attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 			/>
 			{showDataOnMap(countries, casesType)}
