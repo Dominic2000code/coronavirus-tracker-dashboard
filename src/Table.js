@@ -3,7 +3,14 @@ import "./Table.css";
 import numeral from "numeral";
 import CountryGraphContainer from "./country_charts/country_graph";
 
-function Table({ countries, tableState, timeSeries, countries_, totalInt }) {
+function Table({
+	countries,
+	tableState,
+	timeSeries,
+	countries_,
+	totalInt,
+	chartLoaded,
+}) {
 	const [showModal, setShowModal] = useState("hidden");
 	const [countryClicked, setCountryClicked] = useState("");
 
@@ -25,7 +32,11 @@ function Table({ countries, tableState, timeSeries, countries_, totalInt }) {
 				<div id="graph-container">
 					<br></br>
 					<CountryGraphContainer
-						country={countryClicked}
+						country={
+							countryClicked === "UK"
+								? "United Kingdom"
+								: countryClicked
+						}
 						countries={countries_}
 						total={totalInt}
 						timeSeries={timeSeries}
