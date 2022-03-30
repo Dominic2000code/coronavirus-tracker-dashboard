@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ref_country_codes from "./assets/countries-lat-long.json";
 import us_codes from "./assets/USlatlong.json";
 import GlobalGraphContainer from "./chart/global_graph";
+import { CircularProgress } from "@mui/material";
 
 const GlobalStats = () => {
 	const [countriesInteger, setCountriesInteger] = useState([]);
@@ -134,8 +135,8 @@ const GlobalStats = () => {
 					vaccinesData={vaccinesData}
 				/>
 			) : (
-				<div>
-					<p>Loading...</p>
+				<div style={{ marginTop: "15%" }}>
+					<CircularProgress color="inherit" />
 				</div>
 			)}
 		</div>
