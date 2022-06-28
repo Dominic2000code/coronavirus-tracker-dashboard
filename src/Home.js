@@ -20,6 +20,7 @@ import Map from "./Map";
 import ref_country_codes from "./assets/countries-lat-long.json";
 import us_codes from "./assets/USlatlong.json";
 import "leaflet/dist/leaflet.css";
+import Footer from "./Footer";
 
 const Home = () => {
 	const [country, setInputCountry] = useState("worldwide");
@@ -258,12 +259,7 @@ const Home = () => {
 			<div className="app">
 				<div className="app__left">
 					<div className="app__header">
-						<h1>COVID-19 Tracker Dashboard</h1>
-
-						<Link to="/global">
-							<button className="btn">Global Stats</button>
-						</Link>
-
+						<span></span>
 						<FormControl className="app__dropdown">
 							<Select
 								variant="outlined"
@@ -326,23 +322,23 @@ const Home = () => {
 				<Card className="app__right">
 					<CardContent>
 						<div className="app__information">
-							<h3> {tableState} by Country</h3>
-							<p> Highest to Lowest </p>
+							<h3 style={{padding:'0', marginBottom:'0'}} > {tableState} by Country</h3>
+							<p style={{padding:'0', margin:'10px'}}> Highest to Lowest </p>
 							<div className="change_buttons">
 								<button
-									className="btn"
+									className="button-2"
 									onClick={onTableDataChange}
 								>
 									Cases
 								</button>
 								<button
-									className="btn"
+									className="button-2"
 									onClick={onTableDataChange}
 								>
 									Recovered
 								</button>
 								<button
-									className="btn"
+									className="button-2"
 									onClick={onTableDataChange}
 								>
 									Deaths
@@ -359,21 +355,7 @@ const Home = () => {
 					</CardContent>
 				</Card>
 			</div>
-			<footer>
-				<a href="https://github.com/davidpaps/covid_19_mapper">
-					Github repo charts
-				</a>
-				&nbsp;&nbsp;Data Sources:{" "}
-				<a href="https://github.com/CSSEGISandData/COVID-19">
-					John Hopkins
-				</a>
-				,{" "}
-				<a href="https://www.worldometers.info/coronavirus/">
-					Worldometer
-				</a>
-				, <a href="https://github.com/pomber/covid19">Pomber</a>,
-				<a href="https://disease.sh/">Disease.sh</a>
-			</footer>
+			<Footer/>
 		</React.Fragment>
 	);
 };

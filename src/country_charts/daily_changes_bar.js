@@ -161,7 +161,7 @@ const DailyChangesBar = (props) => {
 						</p>
 					</div>
 					<br></br>
-					<button onClick={handleClick} className="btn">
+					<button onClick={handleClick} className="button-2">
 						Show Cases
 					</button>
 					<br></br>
@@ -180,7 +180,7 @@ const DailyChangesBar = (props) => {
 						</p>
 					</div>
 					<br></br>
-					<button onClick={handleClick} className="btn">
+					<button onClick={handleClick} className="button-2">
 						Show Deaths
 					</button>
 					<br></br>

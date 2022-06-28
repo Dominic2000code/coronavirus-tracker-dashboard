@@ -1,0 +1,32 @@
+header{
+    /* position: sticky; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10px;
+    background-color: #d8d6e5;
+}
+
+.logo{
+    cursor: pointer;
+    color: #3676be;
+	font-size: 2rem;
+    margin-left: 50px;
+}
+
+.nav__links{
+    list-style: none;
+}
+
+.nav__links li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav__links li a{
+    transition: all 0.3 ease 8s;
+}
+
+.nav__links li a:hover{
+    color: #0088a9;
+}

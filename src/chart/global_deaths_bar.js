@@ -208,7 +208,7 @@ const GlobalDeathsBar = (props) => {
 			<br></br>
 			{!adjust && (
 				<div id="h">
-					<button onClick={handleClick} className="btn">
+					<button onClick={handleClick} className="button-2">
 						Adjust for Population Density
 					</button>
 					<br></br>
@@ -218,7 +218,7 @@ const GlobalDeathsBar = (props) => {
 			)}
 			{adjust && (
 				<div id="h">
-					<button onClick={handleClick} className="btn">
+					<button onClick={handleClick} className="button-2">
 						Raw Statistics
 					</button>
 					<br></br>

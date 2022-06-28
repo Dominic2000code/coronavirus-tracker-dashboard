@@ -57,9 +57,7 @@ const GlobalGraphContainer = (props) => {
 	// defaults.global.defaultFontColor = "black";
 	return (
 		<div id="graph">
-			<Link to="/" className="btn-link">
-				<button className="btn">Home</button>
-			</Link>{" "}
+			
 			<h2>Global Data From Day of First Death</h2>
 			<br></br>
 			<br></br>
